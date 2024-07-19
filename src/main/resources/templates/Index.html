@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startowa Strona DianaArt</title>
+  <script defer src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
+  <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <a href="#" th:href="@{/}">DianaArt</a>
+  </div>
+  <div class="search-bar">
+    <form action="#" method="get">
+      <input type="text" placeholder="Kawał dobrej sztuki" name="search">
+    </form>
+  </div>
+  <div class="user-actions">
+    <a href="#" th:href="@{/login}"sec:authorize="!isAuthenticated()">Zaloguj się</a>
+    <a href="#" th:href="@{/registration}">Rejestracja</a>
+    <a href="#" th:href="@{/clientOrder}">Koszyk</a>
+    <a href="#" th:href="@{/logout}"sec:authorize="isAuthenticated()">Wyloguj się</a>
+  </div>
+</header>
+
+<nav>
+  <a href="product.html" th:href="@{/category?category=modern}">Modern</a>
+  <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+  <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+  <a href="#" th:href="@{/category?category=science}">Nauka</a>
+  <a href="#" th:href="@{/category?category=life}">Życie</a>
+  <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+</nav>
+
+<main class="main-content">
+  <div class="content">
+    <div class="banner">
+      <a href="#" th:href="@{/}">
+        <img src="../static/img/4.png" alt="Banner DianaArt" th:src="@{/img/4.png}">
+      </a>
+    </div>
+
+    <section class="featured-products">
+      <div class="product" th:each="product : ${products}">
+        <a th:href="@{/product/{id}(id=${product.id})}">
+          <img src="https://via.placeholder.com/150" alt="Produkt" th:src="@{/img/{id}.png(id=${product.id})}">
+          <h3 th:text="${product.name}">Produkt</h3>
+          <p th:text="${product.price}">Cena</p>
+        </a>
+      </div>
+      <!-- Dodaj inne produkty według wzoru powyżej -->
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koszyk Zamówień</title>
+  <link rel="stylesheet" href="../static/styles/order.css" th:href="@{/styles/order.css}">
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="#" th:href="@{/}">DianaArt</a>
+  </div>
+  <div class="search-bar">
+    <form action="#" method="get" th:action="@{/search}">
+      <input type="text" placeholder="Kawał dobrej sztuki" name="search">
+    </form>
+  </div>
+  <div class="user-actions">
+    <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
+  </div>
+</header>
+
+<nav>
+  <a href="#" th:href="@{/category?category=modern}">Modern</a>
+  <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+  <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+  <a href="#" th:href="@{/category?category=science}">Nauka</a>
+  <a href="#" th:href="@{/category?category=life}">Życie</a>
+  <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+</nav>
+
+<main>
+  <div class="content">
+    <div class="cart-summary">
+      <h2>Podsumowanie Koszyka</h2>
+      <div class="cart-items">
+        <!-- Iteracja po produktach koszyka -->
+        <div class="cart-item" th:each="item : ${cartItems}">
+          <img th:src="@{${item.imageUrl}}" alt="Produkt" class="item-image">
+          <div class="item-details">
+            <h3 th:text="${item.name}">Produkt</h3>
+            <p class="item-price" th:text="${item.price}">Cena</p>
+            <p class="item-quantity" th:text="'Ilość: ' + ${item.quantity}">Ilość</p>
+            <button class="remove-item" th:onclick="'/cart/remove/' + ${item.id}">Usuń</button>
+          </div>
+        </div>
+        <!-- Koniec iteracji -->
+      </div>
+      <div class="summary-item">
+        <span>Razem:</span>
+        <span class="total-price" th:text="${totalPrice}">$0.00</span>
+      </div>
+      <a class="checkout-btn" th:href="@{/checkout}">Przejdź do kasy</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
+</footer>
+</body>
+</html>

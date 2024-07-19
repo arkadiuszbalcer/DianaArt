@@ -1,0 +1,250 @@
+/* Stylowanie ogólne */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0; /* Darker gray background for a more subdued look */
+    color: #333;
+}
+
+/* Header styles */
+header {
+    background-color: #203d5e;
+    color: #e0e0e0;;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+header .search-bar {
+    flex: 1;
+    margin: 0 2rem;
+}
+
+header .search-bar input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+}
+
+header .user-actions {
+    display: flex;
+    align-items: center;
+}
+
+header .user-actions a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+header .user-actions a:hover,
+header .user-actions a:focus,
+header .user-actions a:active {
+    text-decoration: none;
+    color: white;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header .logo a:hover,
+header .logo a:focus,
+header .logo a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #fff;
+    padding: 0.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 60px; /* Odstęp od góry, aby nie nakładało się na header */
+    z-index: 999;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+}
+
+nav a:hover,
+nav a:focus,
+nav a:active {
+    text-decoration: none;
+    background-color: #203d5e;
+    color: white;
+    border-radius: 4px;
+}
+
+.content {
+    padding: 2rem;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 25vh; /* Użyjemy jednostek względnych do wysokości ekranu */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Użyjemy cover, aby obraz wypełniał cały kontener */
+}
+
+.categories,
+.featured-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.category,
+.product {
+    background-color: #b0bec5;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 1rem);
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.3s;
+    text-decoration: none;
+    text-underline: none;
+}
+
+.category:hover,
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.category img,
+.product img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Style dla sekcji featured-products */
+.featured-products .product a h3,
+.featured-products .product a p {
+    color: black;
+}
+
+/* Stylizacja paska bocznego */
+
+/* Dostosowanie układu dla głównej treści */
+.main-content {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Globalne style dla linków */
+a {
+    text-decoration: none; /* Usuń podkreślenie dla wszystkich linków */
+    color: black;
+}
+
+.featured-products .product a:hover,
+.featured-products .product a:focus,
+.featured-products .product a:active {
+    text-decoration: none; /* Upewnij się, że linki nie są podkreślone nawet podczas interakcji */
+    color: black;
+}
+
+/* Stylizacja rozwijanego przycisku filtra */
+.filter-toggle {
+    position: relative;
+}
+
+#filterButton {
+    background-color: #203d5e;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.filter-content {
+    display: none; /* Początkowo ukryta */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 200px;
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+}
+
+.filter-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-content button {
+    margin-top: 1rem;
+    background-color: #203d5e;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-content button:hover {
+    background-color: #1b2a42;
+}
+
+/* Stylizacja po kliknięciu przycisku filtra */
+.filter-toggle.open .filter-content {
+    display: block; /* Pokaż zawartość */
+}
