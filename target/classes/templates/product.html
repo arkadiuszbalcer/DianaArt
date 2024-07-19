@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkt - DianaArt</title>
+
+  <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
+  <link rel="stylesheet" href="/styles/product.css" th:href="@{/styles/product.css}">
+
+</head>
+<body>
+<div class="page-wrapper">
+  <header>
+    <div class="logo">
+      <a href="#" th:href="@{/}">DianaArt</a>
+    </div>
+    <div class="search-bar">
+      <form action="#" method="get">
+        <input type="text" placeholder="Kawał dobrej sztuki" name="search">
+      </form>
+    </div>
+    <div class="user-actions">
+      <a href="#" th:href="@{/login}">Zaloguj się</a>
+      <a href="#" th:href="@{/registration}">Rejestracja</a>
+      <a href="#" th:href="@{/cart}">Koszyk</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#" th:href="@{/category?category=modern}">Modern</a>
+    <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+    <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+    <a href="#" th:href="@{/category?category=science}">Nauka</a>
+    <a href="#" th:href="@{/category?category=life}">Życie</a>
+    <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+  </nav>
+
+  <main class="product-page">
+    <div class="product-info">
+      <div class="product-image">
+        <img src="https://via.placeholder.com/150" alt="Produkt" th:src="@{/img/{id}.png(id=${product.id})}" onclick="openModal(this)">
+      </div>
+      <div class="product-description">
+        <h1 th:text="${product.name}">Nazwa Produktu</h1>
+        <p class="product-price" th:text="${product.price}" data-unit-price="${product.price}">
+          Cena: ${product.price} zł
+        </p>
+        <p th:text="${product.details}">
+          Opis produktu. To jest przykładowy opis produktu, który można dostosować do rzeczywistych informacji o produkcie.
+        </p>
+        <div class="quantity-selector">
+          <div class="product-actions">
+            <input type="number" id="quantity" value="1" min="1">
+            <button type="button" onclick="increaseQuantity()">+</button>
+            <button type="button" onclick="decreaseQuantity()">-</button>
+          </div>
+          <p class="total-price">Łączna cena: <span id="totalPrice" th:text="${product.price}">0.00 zł</span></p>
+          <div class="product-actions">
+            <div>
+              <button type="button" th:data-id="${product.id}" onclick="addToCart(this)">Dodaj do koszyka</button>
+              <button type="button" onclick="history.back()" class="back-to-list">Powrót do listy produktów</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="caption"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</div>
+</body>
+</html>

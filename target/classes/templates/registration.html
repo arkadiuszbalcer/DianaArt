@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Popup</title>
+  <script defer src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
+  <link rel="stylesheet" href="../static/styles/login.css" th:href="@{/styles/login.css}">
+</head>
+<body>
+<button id="openLoginBtn">Logowanie</button>
+
+<div id="loginPopup" class="popup">
+  <div class="popup-content">
+    <span class="closeBtn">&times;</span>
+    <h2>Logowanie</h2>
+    <form th:action="@{/login}" method="post">
+      <div class="name-container">
+        <div class="name-field">
+          <label for="firstName">Imię:</label>
+          <input type="text" id="firstName" name="firstName">
+        </div>
+        <div class="name-field">
+          <label for="lastName">Nazwisko:</label>
+          <input type="text" id="lastName" name="lastName">
+        </div>
+      </div>
+
+      <label for="email">Adres e-mail:</label>
+      <input type="email" id="email" name="email">
+
+      <label for="address">Adres zamieszkania:</label>
+      <input type="text" id="address" name="address">
+
+      <div class="address-container">
+        <div class="address-field">
+          <label for="street">Ulica:</label>
+          <input type="text" id="street" name="street">
+        </div>
+        <div class="address-field">
+          <label for="postalCode">Kod pocztowy:</label>
+          <input type="text" id="postalCode" name="postalCode">
+        </div>
+      </div>
+
+      <label for="username">Nazwa użytkownika:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Hasło:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="button" id="registerBtn">Zarejestruj się</button>
+    </form>
+  </div>
+</div>
+
+<script src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
+</body>
+</html>
