@@ -20,6 +20,7 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 header .logo {
@@ -28,8 +29,9 @@ header .logo {
 }
 
 header .search-bar {
-    flex: 1;
+
     margin: 0 2rem;
+    width: 25%;
 }
 
 header .search-bar input[type="text"] {
@@ -142,6 +144,7 @@ nav a:active {
     transition: transform 0.3s;
     text-decoration: none;
     text-underline: none;
+
 }
 
 .category:hover,
@@ -153,6 +156,8 @@ nav a:active {
 .product img {
     max-width: 100%;
     border-radius: 8px;
+    object-fit: cover; /* Dopasowuje obrazek do kontenera, przycinając go, jeśli to konieczne */
+
 }
 
 /* Style dla sekcji featured-products */
@@ -161,7 +166,6 @@ nav a:active {
     color: black;
 }
 
-/* Stylizacja paska bocznego */
 
 /* Dostosowanie układu dla głównej treści */
 .main-content {
@@ -248,3 +252,11 @@ a {
 .filter-toggle.open .filter-content {
     display: block; /* Pokaż zawartość */
 }
+
+
+/* Stylowanie kontenera dla menu na małych ekranach */
+.user-actions {
+    display: flex; /* Domyślnie pokazane na dużych ekranach */
+    align-items: center;
+}
+

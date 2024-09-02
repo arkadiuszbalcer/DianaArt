@@ -1,18 +1,26 @@
-/* styles/cart.css */
-
-/* Stylowanie ogólne */
+/* General Styling */
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* Light gray background for the page */
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Page wrapper to help with sticky footer */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 /* Header styles */
 header {
-    background-color: #203d5e;
+    background-color: #203d5e; /* Dark blue background */
     color: #e0e0e0;
     padding: 1rem 2rem;
     display: flex;
@@ -29,10 +37,12 @@ header .logo {
     font-weight: bold;
 }
 
-header .search-bar {
-    flex: 1;
-    margin: 0 2rem;
-}
+
+    header .search-bar {
+        margin: 0.2rem;
+        width: 25%;
+    }
+
 
 header .search-bar input[type="text"] {
     width: 100%;
@@ -40,6 +50,8 @@ header .search-bar input[type="text"] {
     font-size: 1rem;
     border: none;
     border-radius: 4px;
+    background-color: #f5f5f5; /* Light gray input background */
+    color: #333; /* Dark text for input */
 }
 
 header .user-actions {
@@ -48,7 +60,7 @@ header .user-actions {
 }
 
 header .user-actions a {
-    color: white;
+    color: #e0e0e0;
     margin-left: 1rem;
     text-decoration: none;
 }
@@ -56,8 +68,7 @@ header .user-actions a {
 header .user-actions a:hover,
 header .user-actions a:focus,
 header .user-actions a:active {
-    text-decoration: none;
-    color: white;
+    color: #ff9800; /* Accent color on hover */
 }
 
 header .logo a {
@@ -68,13 +79,12 @@ header .logo a {
 header .logo a:hover,
 header .logo a:focus,
 header .logo a:active {
-    text-decoration: none;
     color: inherit;
 }
 
 /* Navigation styles */
 nav {
-    background-color: #fff;
+    background-color: #fff; /* White background for navigation */
     padding: 0.5rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -82,12 +92,12 @@ nav {
     gap: 1rem;
     margin-bottom: 1rem;
     position: sticky;
-    top: 60px;
+    top: 60px; /* Offset from top to avoid overlapping with header */
     z-index: 999;
 }
 
 nav a {
-    color: #333;
+    color: #333; /* Dark text for navigation links */
     text-decoration: none;
     font-weight: bold;
     padding: 0.5rem 1rem;
@@ -96,107 +106,228 @@ nav a {
 nav a:hover,
 nav a:focus,
 nav a:active {
-    text-decoration: none;
-    background-color: #203d5e;
-    color: white;
+    background-color: #203d5e; /* Dark blue background on hover */
+    color: #fff; /* White text on hover */
     border-radius: 4px;
 }
 
+/* Main content styles */
 .content {
     padding: 2rem;
+    flex: 1; /* Ensures content area takes up remaining space */
 }
 
-.cart-summary {
-    background-color: white;
-    padding: 1rem;
+/* Order details styling */
+.order-details {
+    background-color: #f5f5f5; /* Light gray background for order details */
+    padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 800px; /* Adjust the width */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* Adjust width as needed */
     margin: 0 auto;
 }
 
-.cart-summary h2 {
+.order-details h1 {
     margin-top: 0;
+    color: #203d5e; /* Dark blue color for headings */
 }
 
-.cart-items {
-    margin-bottom: 1rem;
+/* Product list styling */
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.cart-item {
+.product-item {
     display: flex;
     align-items: center;
-    background-color: #b0bec5;
+    background-color: #b0bec5; /* Light gray-blue background for product items */
     padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    max-width: 100%; /* Ensure items fit within the container */
+}
+
+.product-item:hover {
+    background-color: #9eacb4; /* Slightly darker background on hover */
+}
+
+.product-image {
+    margin-right: 1rem;
+}
+
+.product-image img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-info {
+    position: relative; /* To position the delete button within this container */
+    flex: 1;
+    padding: 1rem;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
 }
 
-.item-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
+.product-info h3 {
+    margin-top: 0;
+    color: #333; /* Dark text color for product names */
 }
 
-.item-details {
-    flex: 1;
-    margin-left: 1rem;
-}
-
-.item-price {
-    font-size: 1rem;
+.product-price {
     font-weight: bold;
+    color: #333; /* Dark text color for price */
+}
+
+.product-quantity,
+.product-details {
     margin: 0.5rem 0;
+    color: #555; /* Slightly lighter text color for details */
 }
 
-.item-quantity {
-    margin: 0.5rem 0;
-}
-
-.remove-item {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
-}
-
-.remove-item:hover {
-    background-color: #c82333;
-}
-
-.summary-item {
+.quantity-buttons {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
-.total-price {
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-.checkout-btn {
-    background-color: #28a745;
-    color: white;
+.quantity-buttons button {
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 0.75rem 1.5rem;
     border-radius: 4px;
+    background-color: #203d5e; /* Dark blue background for all buttons */
+    color: white;
     cursor: pointer;
     font-size: 1rem;
 }
 
-.checkout-btn:hover {
-    background-color: #218838;
+.update-quantity {
+    margin-right: 0.5rem;
 }
 
-footer {
-    background-color: #333;
+.update-quantity:disabled {
+    background-color: #ccc; /* Disabled state for decrease button */
+}
+
+.delete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #203d5e; /* Dark blue background for delete button */
     color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.remove-product-form {
+    margin: 0;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333; /* Dark blue background for footer */
+    color: #e0e0e0;
     text-align: center;
     padding: 1rem 0;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+/* Global link styles */
+a {
+    text-decoration: none; /* Remove underline for all links */
+    color: #333;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #ff9800; /* Accent color for links */
+}
+
+/* Filter toggle styles */
+.filter-toggle {
+    position: relative;
+}
+
+#filterButton {
+    background-color: #203d5e; /* Dark blue background for filter button */
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.filter-content {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 200px;
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+}
+
+.filter-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-content button {
+    margin-top: 1rem;
+    background-color: #203d5e; /* Dark blue background for filter button */
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-content button:hover {
+    background-color: #1b2a42; /* Darker blue on hover */
+}
+
+/* Filter toggle open styles */
+.filter-toggle.open .filter-content {
+    display: block; /* Show content */
+}
+.payment button{
+    color:#1b2a42;
+    background-color: #ff9800;
+}
+.order-summary {
+    display: flex;
+    align-items: center; /* Wyrównuje elementy w pionie */
+    justify-content: space-between; /* Rozdziela elementy na boki */
+    margin-top: 2rem; /* Dodatkowy odstęp od góry, jeśli potrzebny */
+}
+
+.order-summary .total-order-sum {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333; /* Kolor tekstu łącznej sumy */
+}
+
+.payment-button {
+    background-color: #ff9800; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu na przycisku */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.payment-button:hover {
+    background-color: #e68900; /* Ciemniejszy odcień pomarańczowego na hover */
 }

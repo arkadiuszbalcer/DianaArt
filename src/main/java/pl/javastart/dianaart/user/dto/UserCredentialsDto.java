@@ -1,5 +1,4 @@
 package pl.javastart.dianaart.user.dto;
-
 import java.util.Set;
 
 public class UserCredentialsDto {

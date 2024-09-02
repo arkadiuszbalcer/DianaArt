@@ -4,37 +4,54 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class CustomSecurityConfig {
-    private static final String USER_ROLE = "USER";
-    private static final String EDITOR_ROLE = "EDITOR";
-    private static final String ADMIN_ROLE = "ADMIN";
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authz -> authz
+        http
+                .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/koszyk").authenticated()
-                        .requestMatchers("/admin/**").hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/shoppingCart/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(login -> login
-                        .loginPage("/login").permitAll()
+                        .loginPage("/login") // Strona logowania
+                        .defaultSuccessUrl("/", true) // Przekierowanie na stronę główną po logowaniu
+                        .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout/**", HttpMethod.GET.name()))
-                        .logoutSuccessUrl("/login?logout").permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", HttpMethod.GET.name()))
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                )
+                .rememberMe(rememberMe -> rememberMe
+                        .key("uniqueAndSecret") // Klucz do tokenów pamięci
+                        .tokenValiditySeconds(86400) // Ważność tokena w sekundach (1 dzień)
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .maximumSessions(1)
+                        .expiredUrl("/login?expired")
                 )
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                        .ignoringRequestMatchers("/h2-console/**")
                 )
                 .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' https://via.placeholder.com; frame-ancestors 'self';")
+                        )
+                        .addHeaderWriter(new ReferrerPolicyHeaderWriter(ReferrerPolicyHeaderWriter.ReferrerPolicy.ORIGIN_WHEN_CROSS_ORIGIN)) // Set Referrer-Policy
                 );
+
         return http.build();
     }
 

@@ -13,6 +13,8 @@
             <column name="price" type="DOUBLE"/>
             <column name="details" type="VARCHAR(500)"/>
             <column name="category" type="VARCHAR(500)"/>
+            <column name="quantity" type="INTEGER">
+            </column>
 
         </createTable>
     </changeSet>

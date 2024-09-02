@@ -6,14 +6,28 @@ public class ProductDto {
     private Double price;
     private String details;
     private  String category;
+    private Integer quantity;
 
 
-    public ProductDto(Long id,String name, Double price, String details, String category) {
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public ProductDto(Long id, String name, Double price, String details, String category, Integer quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.details = details;
         this.category = category;
+        this.quantity = quantity;
     }
 
     public String getCategory() {
@@ -64,6 +78,7 @@ public class ProductDto {
                 ", price=" + price +
                 ", details='" + details + '\'' +
                 ", category='" + category + '\'' +
+                ", quantity='" + quantity + '\'' +
                 '}';
     }
 }

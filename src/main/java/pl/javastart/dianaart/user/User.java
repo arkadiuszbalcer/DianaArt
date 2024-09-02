@@ -1,14 +1,7 @@
 package pl.javastart.dianaart.user;
-
-
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
-import pl.javastart.dianaart.client.ClientOrder;
-import pl.javastart.dianaart.product.Product;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

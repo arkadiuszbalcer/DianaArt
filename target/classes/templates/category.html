@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<html lang="pl" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" th:content="${_csrf.token}">
   <title>Startowa Strona DianaArt</title>
   <script defer src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
+  <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
   <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+  <link rel="stylesheet" href="../styles/product.css" th:href="@{/styles/product.css}">
 </head>
 <body>
 
@@ -14,14 +17,15 @@
     <a href="#" th:href="@{/}">DianaArt</a>
   </div>
   <div class="search-bar">
-    <form action="#" method="get">
-      <input type="text" placeholder="Kawał dobrej sztuki" name="search">
+    <form action="#" method="get" id="searchForm">
+      <input type="text" placeholder="Kawał dobrej sztuki" name="search" id="searchInput">
     </form>
   </div>
   <div class="user-actions">
-    <a href="#" th:href="@{/login}">Zaloguj się</a>
-    <a href="#" th:href="@{/registration}">Rejestracja</a>
-    <a href="#" th:href="@{/cart}">Koszyk</a>
+    <a href="#" th:href="@{/login}" sec:authorize="isAnonymous()">Zaloguj się</a>
+    <a href="#" th:href="@{/registration}" sec:authorize="isAnonymous()">Rejestracja</a>
+    <a href="#" th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Koszyk(<span id="cart-count" th:text="${cartCount}">0</span>)</a>
+    <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
   </div>
 </header>
 
@@ -33,20 +37,11 @@
   <a href="#" th:href="@{/category?category=life}">Życie</a>
   <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
 
-  <!-- Przycisk rozwijany "Filtruj" -->
   <div class="filter-toggle">
     <button id="filterButton">Filtruj</button>
     <div class="filter-content">
       <form id="filterForm">
         <div class="filter-group">
-          <h3>Kategoria</h3>
-          <label>
-            <input type="checkbox" name="category" value="modern"> Modern
-          </label>
-          <label>
-            <input type="checkbox" name="category" value="comfy"> Comfy
-          </label>
-          <!-- Dodaj więcej opcji filtru tutaj -->
         </div>
         <button type="submit">Zastosuj filtry</button>
       </form>
@@ -63,15 +58,16 @@
       </a>
     </div>
 
-    <section class="featured-products">
+    <section class="featured-products" id="productList">
       <div class="product" th:each="product : ${products}">
         <a th:href="@{/product/{id}(id=${product.id})}">
           <img src="https://via.placeholder.com/150" alt="Produkt" th:src="@{/img/{id}.png(id=${product.id})}">
           <h3 th:text="${product.name}">Produkt</h3>
-          <p th:text="${product.price}">Cena</p>
+          <p class="product-price">
+            <span th:text="${product.price}">0.00</span> <span class="currency">zł</span>
+          </p>
         </a>
       </div>
-      <!-- Dodaj inne produkty według wzoru powyżej -->
     </section>
   </div>
 </main>
@@ -80,6 +76,6 @@
   <p>&copy; 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
 </footer>
 
-<script src="../static/scripts/main.js" th:src="@{/scripts/main.js}"></script>
+
 </body>
 </html>

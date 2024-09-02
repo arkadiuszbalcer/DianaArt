@@ -12,8 +12,9 @@
             </column>
             <column name="order_details" type="VARCHAR(500)"/>
             <column name="user_details" type="VARCHAR(500)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
+            <column name="quantity" type="BIGINT"/>
         </createTable>
 
     </changeSet>

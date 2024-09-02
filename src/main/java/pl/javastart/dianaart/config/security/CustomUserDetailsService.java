@@ -8,7 +8,8 @@ import pl.javastart.dianaart.user.UserService;
 import pl.javastart.dianaart.user.dto.UserCredentialsDto;
 
 @Service
-class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
+
     private final UserService userService;
 
     public CustomUserDetailsService(UserService userService) {
@@ -26,7 +27,7 @@ class CustomUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(credentials.getEmail())
                 .password(credentials.getPassword())
-                .roles(credentials.getRoles().toArray(String[]::new))
+                .roles(credentials.getRoles().toArray(new String[0])) // Używamy new String[0] zamiast String[]::new
                 .build();
     }
 }

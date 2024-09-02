@@ -1,5 +1,2 @@
-INSERT INTO client_order (order_details, user_details)
-VALUES ('Jan kowalski','asd'),
-('Jan kowalski','asd'),
-('Jan kowalski','asd'),
- ('Jan kowalski','asd');
+INSERT INTO client_order (user_details,order_details,quantity)
+VALUES ('Jan kowalski','asd',12)

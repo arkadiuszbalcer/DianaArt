@@ -5,10 +5,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Id;
 import pl.javastart.dianaart.client.ClientOrder;
-
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -19,16 +18,27 @@ public class Product {
     private Double price;
     private String details;
     private String category;
+    private Integer quantity;
     @ManyToMany(mappedBy = "products")
     private List<ClientOrder> orders = new ArrayList<>();
 
-    public Product() {}
+    public Product() {
+    }
 
-    public Product(String name, Double price, String details,String category) {
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Product(String name, Double price, String details, String category, Integer quantity) {
         this.name = name;
         this.price = price;
         this.details = details;
         this.category = category;
+        this.quantity = quantity;
     }
 
     public String getCategory() {
@@ -91,6 +101,22 @@ public class Product {
                 ", price=" + price +
                 ", details='" + details + '\'' +
                 ", category='" + category + '\'' +
+                ", quantity='" + quantity + '\'' +
                 '}';
+
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
+

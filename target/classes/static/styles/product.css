@@ -46,6 +46,11 @@ header .search-bar input[type="text"] {
     border: none;
     border-radius: 4px;
 }
+header .search-bar {
+
+    margin: 0.2rem;
+    width: 25%;
+}
 
 header .user-actions a {
     color: white;
@@ -86,7 +91,7 @@ nav a:hover {
 
 /* Product page styles */
 .product-page {
-    padding: 2rem;
+    padding: 5rem;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -96,7 +101,7 @@ nav a:hover {
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -289,3 +294,17 @@ footer {
     transform: scale(1.1);
     cursor: pointer;
 }
+.message-container {
+    position: fixed;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+}
+

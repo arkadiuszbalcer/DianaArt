@@ -4,3 +4,16 @@ spring:
       static-locations: classpath:/static/
   liquibase:
     change-log: classpath:db/changelog/master.xml
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: c2a4c0bb124d25
+    password: 9d03b4697f71bf
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+

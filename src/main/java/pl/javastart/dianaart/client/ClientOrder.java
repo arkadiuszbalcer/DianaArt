@@ -1,15 +1,10 @@
 package pl.javastart.dianaart.client;
 import jakarta.persistence.*;
-import org.springframework.security.core.parameters.P;
 import pl.javastart.dianaart.product.Product;
-import pl.javastart.dianaart.user.User;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 @Entity
 public class ClientOrder {
@@ -18,6 +13,7 @@ public class ClientOrder {
     private Long id;
     private String orderDetails;
     private String userDetails;
+    private Integer quantity;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -26,45 +22,27 @@ public class ClientOrder {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
+    // Added: A map to store product quantities
+    @ElementCollection
+    @CollectionTable(name = "client_order_products", joinColumns = @JoinColumn(name = "client_order_id"))
+    @MapKeyJoinColumn(name = "product_id")
+    @Column(name = "quantity")
+    private Map<Product, Integer> productQuantities = new HashMap<>();
 
-    @JoinColumn(name = "user_roles_id")
-    private User user;*/
-    public ClientOrder() { }
-
-    public String getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(String userDetails) {
-        this.userDetails = userDetails;
+    public ClientOrder() {
     }
 
     public ClientOrder(String orderDetails, String userDetails) {
         this.orderDetails = orderDetails;
         this.userDetails = userDetails;
     }
-    /*public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }*/
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     public String getOrderDetails() {
@@ -75,17 +53,53 @@ public class ClientOrder {
         this.orderDetails = orderDetails;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
-        product.addOrder(this);
+    public String getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(String userDetails) {
+        this.userDetails = userDetails;
+    }
+
+    public Map<Product, Integer> getProductQuantities() {
+        return productQuantities;
+    }
+
+    public void setProductQuantities(Map<Product, Integer> productQuantities) {
+        this.productQuantities = productQuantities;
+    }
+
+    public void addProduct(Product product, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than zero");
+        }
+        productQuantities.merge(product, quantity, Integer::sum);
+    }
+
+    public void removeProduct(Product product) {
+        productQuantities.remove(product);
     }
 
     @Override
     public String toString() {
         return "ClientOrder{" +
                 "id=" + id +
-                ", products=" + products +
                 ", orderDetails='" + orderDetails + '\'' +
+                ", userDetails='" + userDetails + '\'' +
+                ", productQuantities=" + productQuantities +
                 '}';
     }
+
+    public List<Product> getProducts() {
+        return new ArrayList<>(productQuantities.keySet());
+    }
+
+    public void updateProductQuantity(Product product, int quantity) {
+        if (quantity > 0) {
+            productQuantities.put(product, quantity);
+        } else {
+            removeProduct(product);
+        }
+    }
 }
+

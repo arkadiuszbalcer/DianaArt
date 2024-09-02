@@ -1,13 +1,9 @@
 package pl.javastart.dianaart.product;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import pl.javastart.dianaart.product.dto.ProductDto;
 import pl.javastart.dianaart.product.dto.ProductDtoMapper;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,18 +11,18 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDto> FindAllProduct() {
+    public List<ProductDto> findAllProducts() {
         return productRepository.findAll().stream()
                 .map(ProductDtoMapper::map)
                 .toList();
     }
 
-    public Optional<ProductDto> findProductById(long id) {
-        return productRepository.findById(id).map(ProductDtoMapper::map);
+    public Optional<Product> findProductById(long id) {
+        return productRepository.findById(id);
     }
 
     public List<ProductDto> findProductsByCategory(String category) {
@@ -36,6 +32,21 @@ public class ProductService {
         }
         return products.stream().map(ProductDtoMapper::map).toList();
     }
+
+    public List<ProductDto> searchProductsByCategoryAndQuery(String category, String query) {
+        List<Product> products = productRepository.searchByCategoryAndQuery(category, query);
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found for the given category and query");
+        }
+        return products.stream().map(ProductDtoMapper::map).toList();
+    }
+
+
+    public List<ProductDto> searchProducts(String query) {
+        List<Product> products = productRepository.searchByNameOrDetails(query);
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found");
+        }
+        return products.stream().map(ProductDtoMapper::map).toList();
+    }
 }
-
-
