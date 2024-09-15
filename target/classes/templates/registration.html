@@ -13,7 +13,16 @@
   <div class="popup-content">
     <span class="closeBtn">&times;</span>
     <h2>Rejestracja</h2>
-    <form th:action="@{/register}" method="post">
+
+    <!-- Dodaj miejsce na wiadomości -->
+    <div th:if="${registrationSuccess}" class="success-message">
+      <p th:text="${registrationSuccess}"></p>
+    </div>
+    <div th:if="${registrationError}" class="error-message">
+      <p th:text="${registrationError}"></p>
+    </div>
+
+    <form th:action="@{/registration}" method="post">
       <label for="email">Adres e-mail:</label>
       <input type="email" id="email" name="email" required>
 

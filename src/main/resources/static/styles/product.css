@@ -22,7 +22,7 @@ body {
 header {
     background-color: #203d5e;
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,31 +63,7 @@ header .user-actions a:hover {
 }
 
 /* Navigation styles */
-nav {
-    background-color: #fff;
-    padding: 0.5rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    position: sticky;
-    top: 60px;
-    z-index: 999;
-}
 
-nav a {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-}
-
-nav a:hover {
-    background-color: #203d5e;
-    color: white;
-    border-radius: 4px;
-}
 
 /* Product page styles */
 .product-page {
@@ -189,14 +165,6 @@ nav a:hover {
     background-color: #1b2a42;
 }
 
-.product-actions .back-to-list {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    font: inherit;
-}
 
 .product-actions .back-to-list:hover {
     text-decoration: none;

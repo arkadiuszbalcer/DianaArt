@@ -26,7 +26,7 @@ public class RegistrationController {
         return "registration";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public String registerUser(@Valid UserRegistrationDto userRegistrationDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "registration"; // Return to the registration form with errors
@@ -37,10 +37,11 @@ public class RegistrationController {
             emailService.sendEmail(userRegistrationDto.getEmail(), "Welcome!", "Thank you for registering with us.");
             redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful! Please log in.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("registrationError", "An account already exists for this email.");
+            redirectAttributes.addFlashAttribute("registrationError", "Użytkownik o podanym mailu istnieje.");
             return "redirect:/registration"; // Redirect to the registration page on error
         }
 
         return "redirect:/login"; // Redirect to login page after successful registration
+
     }
 }

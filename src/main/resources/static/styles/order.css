@@ -22,7 +22,7 @@ body {
 header {
     background-color: #203d5e; /* Dark blue background */
     color: #e0e0e0;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -83,9 +83,9 @@ header .logo a:active {
 }
 
 /* Navigation styles */
-nav {
+.nav-container {
     background-color: #fff; /* White background for navigation */
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
@@ -114,7 +114,6 @@ nav a:active {
 /* Main content styles */
 .content {
     padding: 2rem;
-    flex: 1; /* Ensures content area takes up remaining space */
 }
 
 /* Order details styling */
@@ -330,4 +329,54 @@ a:active {
 
 .payment-button:hover {
     background-color: #e68900; /* Ciemniejszy odcień pomarańczowego na hover */
+}
+* Domyślnie, menu jest widoczne, a przycisk hamburgera ukryty *
+.nav-menu-content {
+    display: flex;
+    gap: 1rem;
+}
+
+.menu-toggle {
+    display: none; /* Ukryj przycisk hamburgera na dużych ekranach */
+    font-size: 1rem;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nav-menu-content {
+        display: none; /* Ukryj menu na małych ekranach */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Dostosuj według potrzeb */
+        left: 0;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-toggle {
+        display: block;
+        color: #1b2a42;
+        border: #1b2a42/* Pokaż przycisk hamburgera na małych ekranach */
+    }
+
+    .nav-menu-content.open {
+        display: flex; /* Pokaż menu po kliknięciu przycisku hamburgera */
+    }
+
+    .nav-menu-content a {
+        padding: 1rem;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-menu-content a:hover,
+    .nav-menu-content a:focus {
+        background-color: #203d5e;
+        color: white;
+    }
+
 }

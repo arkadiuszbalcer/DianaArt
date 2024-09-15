@@ -12,7 +12,7 @@ body {
 header {
     background-color: #203d5e;
     color: #e0e0e0;;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,7 +30,7 @@ header .logo {
 
 header .search-bar {
 
-    margin: 0 2rem;
+    margin: 0.2rem;
     width: 25%;
 }
 
@@ -71,9 +71,55 @@ header .logo a:active {
     text-decoration: none;
     color: inherit;
 }
+@media (max-width: 768px) {
+    header {
+        justify-content: flex-start; /* Przesuwa całą zawartość nagłówka w lewo */
+    }
 
+    /* Dostosowanie odstępów między elementami, jeśli jest taka potrzeba */
+    header .logo {
+        margin-right: 1rem; /* Opcjonalne - dodaj odstęp między logo a resztą */
+    }
+
+    header .search-bar {
+        margin-right: 1rem; /* Opcjonalne - dodaj odstęp między wyszukiwarką a akcjami użytkownika */
+    }
+
+    header .user-actions {
+        margin-left: auto; /* Przyciski (hamburger itp.) na końcu */
+        display: block;
+        color: white;
+        border: #1b2a42
+    }
+}
+/* Hide burger menu button on larger screens */
+.burger-menu {
+    display: none;
+}
+
+/* Show user-actions section on small screens */
+.user-actions {
+    display: flex; /* Default display on large screens */
+    align-items: center;
+}
+
+/* Show burger menu button on small screens */
+@media (max-width: 768px) {
+    .user-actions {
+        display: none; /* Hide user actions on small screens */
+    }
+
+    .burger-menu {
+        display: block; /* Show burger menu button on small screens */
+    }
+}
+
+/* Show user actions when burger menu is clicked */
+.burger-menu.open + .user-actions {
+    display: flex; /* Show user actions when burger menu is active */
+}
 /* Navigation styles */
-nav {
+.nav-container {
     background-color: #fff;
     padding: 0.5rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -260,3 +306,145 @@ a {
     align-items: center;
 }
 
+/* Styl dla przycisku filtrowania */
+#filterButton {
+    background-color: #203d5e;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+#filterButton:hover {
+    background-color: #1b2a42;
+}
+
+/* Styl dla rozwijanego menu po najechaniu */
+.filter-toggle:hover .filter-content {
+    display: block;
+    opacity: 1;
+}
+
+.filter-content {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    background-color: transparent; /* Zmienione z #fff na transparentne tło */
+    box-shadow: none; /* Usunięcie cienia */
+    padding: 0; /* Usunięcie paddingu */
+    width: auto; /* Ustawienie na auto, jeśli potrzebne */
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0; /* Usunięcie zaokrąglonych rogów */
+}
+
+/* Styl dla przycisków wewnątrz formularza filtrowania */
+.filter-content button {
+    background-color: #203d5e;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px; /* Ustalona szerokość dla przycisków */
+    display: block; /* Przyciski zajmują pełną szerokość kontenera */
+    margin: 0; /* Usunięcie marginesów */
+}
+
+/* Styl dla przycisków wewnątrz formularza filtrowania po najechaniu */
+.filter-content button:hover {
+    background-color: #1b2a42;
+}
+
+/* Pagination styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pagination li {
+    margin: 0;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #203d5e;
+    padding: 0.5rem 1rem;
+    border: 1px solid #203d5e;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.pagination a:hover,
+.pagination a:focus {
+    background-color: #203d5e;
+    color: white;
+}
+
+.pagination li.active a {
+    background-color: #203d5e;
+    color: white;
+    border: none;
+}
+/* Domyślnie, menu jest widoczne, a przycisk hamburgera ukryty */
+.nav-menu-content {
+    display: flex;
+}
+
+.menu-toggle {
+    display: none; /* Ukryj przycisk hamburgera na dużych ekranach */
+    font-size: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nav-menu-content {
+        display: none; /* Ukryj menu na małych ekranach */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Dostosuj według potrzeb */
+        left: 0;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-toggle {
+        display: block;
+        color: #1b2a42;
+        border: #1b2a42;/* Pokaż przycisk hamburgera na małych ekranach */
+    }
+
+    .nav-menu-content.open {
+        display: flex; /* Pokaż menu po kliknięciu przycisku hamburgera */
+    }
+
+    .nav-menu-content a {
+        padding: 1rem;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-menu-content a:hover,
+    .nav-menu-content a:focus {
+        background-color: #203d5e;
+        color: white;
+    }
+
+}

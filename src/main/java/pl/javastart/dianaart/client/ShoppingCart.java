@@ -1,5 +1,7 @@
 package pl.javastart.dianaart.client;
 import pl.javastart.dianaart.product.Product;
+
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class ShoppingCart {
     }
 
     // Dodaje produkt do koszyka lub aktualizuje jego ilość, jeśli już istnieje
-    public void addProduct(Product product, int quantity) {
+    public void addProduct(Product product, int quantity, OffsetDateTime orderDate) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Startowa Strona DianaArt</title>
   <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
-  <link rel="stylesheet" href="/styles/product.css" th:href="@{/styles/product.css}">
+
   <meta name="csrf-token" th:content="${_csrf.token}">
   <script defer src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
   <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
@@ -23,6 +23,7 @@
     </form>
   </div>
   <div class="user-actions">
+    <button class="burger-menu" aria-label="Otwórz menu">&#9776;</button>
     <a href="#" th:href="@{/login}" sec:authorize="isAnonymous()">Zaloguj się</a>
     <a href="#" th:href="@{/registration}" sec:authorize="isAnonymous()">Rejestracja</a>
     <a href="#" th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Koszyk(<span id="cart-count" th:text="${cartCount}">0</span>)</a>
@@ -30,15 +31,17 @@
   </div>
 </header>
 
-
 <div class="nav-container">
   <nav class="nav-menu">
-    <a href="#" th:href="@{/category?category=modern}">Modern</a>
-    <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
-    <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
-    <a href="#" th:href="@{/category?category=science}">Nauka</a>
-    <a href="#" th:href="@{/category?category=life}">Życie</a>
-    <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+    <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
+    <div class="nav-menu-content">
+      <a href="#" th:href="@{/category?category=modern}">Modern</a>
+      <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+      <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+      <a href="#" th:href="@{/category?category=science}">Nauka</a>
+      <a href="#" th:href="@{/category?category=life}">Życie</a>
+      <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+    </div>
   </nav>
 </div>
 
@@ -51,6 +54,7 @@
     </div>
 
     <section class="featured-products" id="productList">
+      <div id="noResultsMessage" style="display: none;">Nie znaleziono produktów</div>
       <div class="product" th:each="product : ${products}">
         <a th:href="@{/product/{id}(id=${product.id})}">
           <img src="https://via.placeholder.com/150" alt="Produkt" th:src="@{/img/{id}.png(id=${product.id})}">
@@ -58,6 +62,25 @@
           <p th:text="${product.price} + ' zł'">Cena</p>
         </a>
       </div>
+    </section>
+
+    <section class="pagination">
+      <ul>
+        <!-- Previous Page Link -->
+        <li th:if="${currentPage > 0}">
+          <a th:href="'/?page=' + ${currentPage - 1}" aria-label="Previous Page">Poprzednia</a>
+        </li>
+
+        <!-- Page Number Links -->
+        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? ' active' : ''">
+          <a th:href="'/?page=' + ${i}" th:text="${i + 1}">1</a>
+        </li>
+
+        <!-- Next Page Link -->
+        <li th:if="${currentPage < totalPages - 1}">
+          <a th:href="'/?page=' + ${currentPage + 1}" aria-label="Next Page">Następna</a>
+        </li>
+      </ul>
     </section>
   </div>
 </main>

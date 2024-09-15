@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.javastart.dianaart.client.ShoppingCartService;
+import pl.javastart.dianaart.product.ProductPageResult;
 import pl.javastart.dianaart.product.ProductService;
 import pl.javastart.dianaart.product.dto.ProductDto;
 
@@ -21,17 +22,19 @@ public class HomeShopController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
-        List<ProductDto> products = productService.findAllProducts();
+    public String home(Model model, @RequestParam(defaultValue = "0") int page) {
+        ProductPageResult pageResult = productService.findAllProducts(page);
         int cartCount = shoppingCartService.getShoppingCart().getProducts().size();
-        model.addAttribute("price", "Cena produktu");
-        model.addAttribute("name", "Nazwa produktu");
-        model.addAttribute("details", "Szczegóły");
-        model.addAttribute("products", products);
+
+        System.out.println("Current Page: " + pageResult.getCurrentPage());
+        System.out.println("Total Pages: " + pageResult.getTotalPages());
+
+        model.addAttribute("products", pageResult.getProducts());
+        model.addAttribute("currentPage", pageResult.getCurrentPage());
+        model.addAttribute("totalPages", pageResult.getTotalPages());
         model.addAttribute("cartCount", cartCount);
         return "homeShop";
     }
-
     @GetMapping("/search")
     public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String query) {
         List<ProductDto> products = productService.searchProducts(query);

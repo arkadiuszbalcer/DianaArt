@@ -3,8 +3,64 @@ document.addEventListener('DOMContentLoaded', () => {
     updateButtonStates();
     updateTotalOrderSum();
     initializeProductSearch(); // Inicjalizacja funkcji wyszukiwania
+    initializeSorting();
 
-    // Add product to cart
+    function initializeSorting() {
+        const sortAscButton = document.getElementById('sortAsc');
+        const sortDescButton = document.getElementById('sortDesc');
+        const productList = document.getElementById('productList');
+
+        if (!productList) return;
+
+        const products = Array.from(productList.getElementsByClassName('product'));
+
+        // Sortuj rosnąco
+        sortAscButton.addEventListener('click', () => {
+            const sortedProducts = products.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('.product-price span').textContent);
+                const priceB = parseFloat(b.querySelector('.product-price span').textContent);
+                return priceA - priceB;
+            });
+            displaySortedProducts(sortedProducts, productList);
+        });
+
+        // Sortuj malejąco
+        sortDescButton.addEventListener('click', () => {
+            const sortedProducts = products.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('.product-price span').textContent);
+                const priceB = parseFloat(b.querySelector('.product-price span').textContent);
+                return priceB - priceA;
+            });
+            displaySortedProducts(sortedProducts, productList);
+        });
+    }
+
+    // Wyświetlanie posortowanych produktów
+    function displaySortedProducts(sortedProducts, productList) {
+        productList.innerHTML = ''; // Czyścimy listę produktów
+        sortedProducts.forEach(product => {
+            productList.appendChild(product); // Dodajemy posortowane produkty
+        });
+    }
+});
+    // Funkcja do pobierania liczby produktów w koszyku
+    function updateCartCount() {
+        fetch('/cart/count')
+            .then(response => response.json())
+            .then(data => {
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = data;
+                } else {
+                    console.error('Element #cart-count not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching cart count:', error);
+            });
+    }
+
+    // Wywołaj funkcję aktualizacji licznika koszyka po dodaniu produktu do koszyka
     const addToCartForms = document.querySelectorAll('.add-to-cart-form');
     addToCartForms.forEach(form => {
         form.addEventListener('submit', function(event) {
@@ -12,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             const productId = formData.get('productId');
             const quantity = formData.get('quantity');
+            const orderDate = new Date().toISOString();
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             fetch('/shoppingCart/Product', {
@@ -21,15 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: new URLSearchParams({
-                    productId: String(productId), // Ensure it's a string
-                    quantity: String(quantity)    // Ensure it's a string
+                    productId: String(productId),
+                    quantity: String(quantity),
+                    orderDate: orderDate
                 })
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Add to cart response:', data); // Log response data
+                    console.log('Add to cart response:', data);
                     if (data.success) {
-                        updateCartCount(data.cartCount); // Update cart count on success
+                        updateCartCount(); // Aktualizuj licznik koszyka na sukces
                         showMessage('Produkt został pomyślnie dodany do koszyka');
                     } else {
                         showMessage('Produkt nie został dodany do koszyka');
@@ -40,7 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     showMessage('Musisz być zalogowany, aby dodać produkt do koszyka');
                 });
         });
-    });
+
+    // Inicjalna aktualizacja licznika koszyka
+    updateCartCount();
+});
 
     // Update product quantity
     function updateOrder() {
@@ -121,15 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function updateCartCount(count) {
-        const cartCountElement = document.getElementById('cart-count');
-        if (cartCountElement) {
-            cartCountElement.textContent = count;
-        } else {
-            console.error('Element #cart-count not found');
-        }
-    }
-
     function updateTotalOrderSum() {
         const totalOrderSumElement = document.querySelector('.total-order-sum');
         if (!totalOrderSumElement) {
@@ -165,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
 
 function initializeProductSearch() {
     const searchInput = document.getElementById('searchInput');
@@ -174,11 +225,13 @@ function initializeProductSearch() {
     const productList = document.getElementById('productList');
     if (!productList) return; // Exit if the product list element is not found
 
+    const noResultsMessage = document.getElementById('noResultsMessage'); // Element z komunikatem
     const products = productList.querySelectorAll('.product');
     if (products.length === 0) return; // Exit if no products are found
 
     searchInput.addEventListener('input', function () {
         const query = searchInput.value.toLowerCase();
+        let foundAny = false; // Flaga do śledzenia, czy znaleziono jakiekolwiek produkty
 
         products.forEach(product => {
             const productName = product.querySelector('h3') ? product.querySelector('h3').textContent.toLowerCase() : '';
@@ -186,12 +239,21 @@ function initializeProductSearch() {
 
             if (productName.includes(query) || productPrice.includes(query)) {
                 product.style.display = '';
+                foundAny = true; // Zmieniamy flagę, jeśli produkt pasuje do zapytania
             } else {
                 product.style.display = 'none';
             }
         });
+
+        // Wyświetl komunikat, jeśli żaden produkt nie pasuje
+        if (foundAny) {
+            noResultsMessage.style.display = 'none';
+        } else {
+            noResultsMessage.style.display = 'block';
+        }
     });
 }
+
 
 function showMessage(message) {
     const messageContainer = document.getElementById('message-container');

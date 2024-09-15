@@ -1,6 +1,9 @@
 package pl.javastart.dianaart.client;
 import jakarta.persistence.*;
 import pl.javastart.dianaart.product.Product;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +14,10 @@ public class ClientOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String orderDetails;
+
+    @Column(name = "order_date")
+    OffsetDateTime orderDate;
+
     private String userDetails;
     private Integer quantity;
 
@@ -22,7 +28,6 @@ public class ClientOrder {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
 
-    // Added: A map to store product quantities
     @ElementCollection
     @CollectionTable(name = "client_order_products", joinColumns = @JoinColumn(name = "client_order_id"))
     @MapKeyJoinColumn(name = "product_id")
@@ -32,8 +37,8 @@ public class ClientOrder {
     public ClientOrder() {
     }
 
-    public ClientOrder(String orderDetails, String userDetails) {
-        this.orderDetails = orderDetails;
+    public ClientOrder(OffsetDateTime orderDate, String userDetails) {
+        this.orderDate = orderDate;
         this.userDetails = userDetails;
     }
 
@@ -43,14 +48,6 @@ public class ClientOrder {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(String orderDetails) {
-        this.orderDetails = orderDetails;
     }
 
     public String getUserDetails() {
@@ -69,7 +66,27 @@ public class ClientOrder {
         this.productQuantities = productQuantities;
     }
 
-    public void addProduct(Product product, int quantity) {
+    public OffsetDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(OffsetDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public void addProduct(Product product, int quantity, OffsetDateTime orderDate) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }
@@ -84,7 +101,7 @@ public class ClientOrder {
     public String toString() {
         return "ClientOrder{" +
                 "id=" + id +
-                ", orderDetails='" + orderDetails + '\'' +
+                ", orderDate='" + orderDate + '\'' +
                 ", userDetails='" + userDetails + '\'' +
                 ", productQuantities=" + productQuantities +
                 '}';
@@ -102,4 +119,5 @@ public class ClientOrder {
         }
     }
 }
+
 

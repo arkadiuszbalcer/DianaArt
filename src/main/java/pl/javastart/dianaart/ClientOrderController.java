@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.javastart.dianaart.client.*;
 import pl.javastart.dianaart.product.ProductService;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +42,8 @@ public class ClientOrderController {
 
     @PostMapping("/Product")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> addProductToOrder(@RequestParam Long productId, @RequestParam Integer quantity) {
-        return shoppingCartService.addProductToCart(productId, quantity);
+    public ResponseEntity<Map<String, Object>> addProductToOrder(@RequestParam Long productId, @RequestParam Integer quantity, @RequestParam OffsetDateTime orderDate)  {
+        return shoppingCartService.addProductToCart(productId, quantity, orderDate);
     }
 
 

@@ -8,12 +8,21 @@
   <link rel="stylesheet" href="../static/styles/login.css" th:href="@{/styles/login.css}">
 </head>
 <body>
+
+<!-- Przycisk otwierający popup logowania -->
 <button id="openLoginBtn">Logowanie</button>
 
+<!-- Popup logowania -->
 <div id="loginPopup" class="popup">
   <div class="popup-content">
     <span class="closeBtn">&times;</span>
     <h2>Logowanie</h2>
+
+    <!-- Wyświetlanie komunikatu o błędzie, jeśli jest przekazany -->
+    <div th:if="${errorMessage}" class="error-message">
+      <p th:text="${errorMessage}"></p>
+    </div>
+
     <form th:action="@{/login}" method="post">
       <label for="username">Nazwa użytkownika:</label>
       <input type="text" id="username" name="username" required>

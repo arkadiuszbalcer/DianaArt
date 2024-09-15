@@ -10,11 +10,11 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="order_details" type="VARCHAR(500)"/>
+            <column name="order_date" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="user_details" type="VARCHAR(500)">
                 <constraints nullable="true"/>
             </column>
-            <column name="quantity" type="BIGINT"/>
+            <column name="quantity" type="INTEGER"/>
         </createTable>
 
     </changeSet>

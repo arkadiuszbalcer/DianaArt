@@ -8,6 +8,9 @@ import pl.javastart.dianaart.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.javastart.dianaart.product.ProductService;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -38,8 +41,8 @@ public class ShoppingCartService {
         return shoppingCart;
     }
 
-    public void addProduct(Product product, int quantity) {
-        shoppingCart.addProduct(product, quantity);
+    public void addProduct(Product product, int quantity, OffsetDateTime orderDate) {
+        shoppingCart.addProduct(product, quantity, orderDate);
     }
 
 
@@ -87,13 +90,13 @@ public class ShoppingCartService {
     }
 
     // Nowa metoda obsługująca dodawanie produktu i tworzenie odpowiedzi
-    public ResponseEntity<Map<String, Object>> addProductToCart(Long productId, Integer quantity) {
+    public ResponseEntity<Map<String, Object>> addProductToCart(Long productId, Integer quantity, OffsetDateTime orderDate) {
         Optional<Product> productOpt = productService.findProductById(productId);
 
         if (productOpt.isPresent() && quantity != null && quantity > 0) {
             Product product = productOpt.get();
-            addProduct(product, quantity);
-            clientOrderService.addProduct(product, quantity);
+            addProduct(product, quantity, orderDate);
+            clientOrderService.addProduct(product, quantity, orderDate);
             return ResponseEntity.ok(responseService.createSuccessResponse(getShoppingCart().getProducts().size()));
         } else {
             return ResponseEntity.ok(responseService.createErrorResponse("Product not found or invalid quantity"));

@@ -7,6 +7,7 @@
   <title>Startowa Strona DianaArt</title>
   <script defer src="/scripts/login.js" th:src="@{/scripts/login.js}"></script>
   <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
+  <script defer src="/scripts/main.js" th:src="@{/scripts/main.js}"></script>
   <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
   <link rel="stylesheet" href="../styles/product.css" th:href="@{/styles/product.css}">
 </head>
@@ -29,28 +30,38 @@
   </div>
 </header>
 
-<nav>
-  <a href="#" th:href="@{/category?category=modern}">Modern</a>
-  <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
-  <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
-  <a href="#" th:href="@{/category?category=science}">Nauka</a>
-  <a href="#" th:href="@{/category?category=life}">Życie</a>
-  <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+<div class="nav-container">
+  <nav class="nav-menu">
+    <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
+    <div class="nav-menu-content">
+      <a href="#" th:href="@{/category?category=modern}">Modern</a>
+      <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+      <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+      <a href="#" th:href="@{/category?category=science}">Nauka</a>
+      <a href="#" th:href="@{/category?category=life}">Życie</a>
+      <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
 
-  <div class="filter-toggle">
-    <button id="filterButton">Filtruj</button>
-    <div class="filter-content">
-      <form id="filterForm">
-        <div class="filter-group">
+      <div class="filter-toggle">
+        <button id="filterButton">Filtruj</button>
+        <div class="filter-content">
+          <form id="filterForm">
+            <div class="filter-group">
+              <!-- Sortowanie -->
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  <button type="button" id="sortAsc">Sortuj rosnąco</button>
+                  <button type="button" id="sortDesc">Sortuj malejąco</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        <button type="submit">Zastosuj filtry</button>
-      </form>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <main class="main-content">
-
   <div class="content">
     <div class="banner">
       <a href="#" th:href="@{/}">
@@ -59,6 +70,7 @@
     </div>
 
     <section class="featured-products" id="productList">
+      <div id="noResultsMessage" style="display: none;">Nie znaleziono produktów</div>
       <div class="product" th:each="product : ${products}">
         <a th:href="@{/product/{id}(id=${product.id})}">
           <img src="https://via.placeholder.com/150" alt="Produkt" th:src="@{/img/{id}.png(id=${product.id})}">
@@ -75,7 +87,6 @@
 <footer>
   <p>&copy; 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
 </footer>
-
 
 </body>
 </html>

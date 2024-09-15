@@ -77,21 +77,6 @@ public class Product {
         return details;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public List<ClientOrder> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<ClientOrder> orders) {
-        this.orders = orders;
-    }
-
-    public void addOrder(ClientOrder clientOrder) {
-        orders.add(clientOrder);
-    }
 
     @Override
     public String toString() {

@@ -6,7 +6,9 @@
   <title>Produkt - DianaArt</title>
 
   <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
-  <link rel="stylesheet" href="/styles/product.css" th:href="@{/styles/product.css}">
+  <script defer src="/scripts/main.js" th:src="@{/scripts/main.js}"></script>
+  <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+  <link rel="stylesheet" href="../styles/product.css" th:href="@{/styles/product.css}">
   <meta name="csrf-token" th:content="${_csrf.token}">
 </head>
 <body>
@@ -26,14 +28,20 @@
     </div>
   </header>
 
-  <nav>
-    <a href="#" th:href="@{/category?category=modern}">Modern</a>
-    <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
-    <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
-    <a href="#" th:href="@{/category?category=science}">Nauka</a>
-    <a href="#" th:href="@{/category?category=life}">Życie</a>
-    <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+  <div class="nav-container">
+  <nav class="nav-menu">
+    <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
+    <div class="nav-menu-content">
+      <a href="#" th:href="@{/category?category=modern}">Modern</a>
+      <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+      <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+      <a href="#" th:href="@{/category?category=science}">Nauka</a>
+      <a href="#" th:href="@{/category?category=life}">Życie</a>
+      <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+    </div>
   </nav>
+</div>
+
 
   <div id="message-container" class="message-container" style="display:none;"></div>
   <main class="product-page">
@@ -55,6 +63,7 @@
           <form action="#" th:action="@{/shoppingCart/Product}" method="post" class="add-to-cart-form">
             <input type="hidden" name="productId" th:value="${product.id}">
             <input type="number" id="quantity" name="quantity" value="1" min="1">
+            <input type="hidden" name="orderDate" th:value="${T(java.time.LocalDateTime)}"/>
             <button type="submit">Dodaj do zamówienia</button>
           </form>
         </div>

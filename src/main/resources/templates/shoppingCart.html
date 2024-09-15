@@ -6,6 +6,7 @@
   <title>Szczegóły zamówienia - DianaArt</title>
   <link rel="stylesheet" href="../static/styles/order.css" th:href="@{/styles/order.css}">
   <script defer src="../static/scripts/product.js" th:src="@{/scripts/product.js}"></script>
+  <script defer src="../static/scripts/main.js" th:src="@{/scripts/main.js}"></script>
   <meta name="csrf-token" th:content="${_csrf.token}">
 </head>
 <body>
@@ -20,14 +21,19 @@
     </div>
   </header>
 
-  <nav>
-    <a href="#" th:href="@{/category?category=modern}">Modern</a>
-    <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
-    <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
-    <a href="#" th:href="@{/category?category=science}">Nauka</a>
-    <a href="#" th:href="@{/category?category=life}">Życie</a>
-    <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
-  </nav>
+  <div class="nav-container">
+    <nav class="nav-menu">
+      <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
+      <div class="nav-menu-content">
+        <a href="#" th:href="@{/category?category=modern}">Modern</a>
+        <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+        <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+        <a href="#" th:href="@{/category?category=science}">Nauka</a>
+        <a href="#" th:href="@{/category?category=life}">Życie</a>
+        <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+      </div>
+    </nav>
+  </div>
 
   <main class="content">
     <div class="order-details">
