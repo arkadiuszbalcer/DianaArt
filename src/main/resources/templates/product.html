@@ -20,10 +20,11 @@
     <div class="logo">
       <a href="#" th:href="@{/}">DianaArt</a>
     </div>
+    <button class="burger-menu" aria-label="Otwórz menu">&#9776;</button>
     <div class="user-actions">
       <a href="#" th:href="@{/login}" sec:authorize="isAnonymous()">Zaloguj się</a>
       <a href="#" th:href="@{/registration}" sec:authorize="isAnonymous()">Rejestracja</a>
-      <a href="#" th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Koszyk (<span id="cart-count" th:text="${cartCount}">0</span>)</a>
+      <a href="#" th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Koszyk(<span id="cart-count" th:text="${cartCount}">0</span>)</a>
       <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
     </div>
   </header>

@@ -45,19 +45,22 @@ header .search-bar input[type="text"] {
 header .user-actions {
     display: flex;
     align-items: center;
+
 }
 
 header .user-actions a {
     color: white;
     margin-left: 1rem;
     text-decoration: none;
+
 }
 
 header .user-actions a:hover,
 header .user-actions a:focus,
 header .user-actions a:active {
-    text-decoration: none;
     color: white;
+    background: #203d5e;
+    width: 100%;
 }
 
 header .logo a {
@@ -71,9 +74,16 @@ header .logo a:active {
     text-decoration: none;
     color: inherit;
 }
+    /* Hide burger menu button on larger screens */
+   .burger-menu {
+        display: none;
+    }
+
+
 @media (max-width: 768px) {
     header {
         justify-content: flex-start; /* Przesuwa całą zawartość nagłówka w lewo */
+
     }
 
     /* Dostosowanie odstępów między elementami, jeśli jest taka potrzeba */
@@ -86,365 +96,388 @@ header .logo a:active {
     }
 
     header .user-actions {
-        margin-left: auto; /* Przyciski (hamburger itp.) na końcu */
-        display: block;
-        color: white;
-        border: #1b2a42
-    }
-}
-/* Hide burger menu button on larger screens */
-.burger-menu {
-    display: none;
-}
-
-/* Show user-actions section on small screens */
-.user-actions {
-    display: flex; /* Default display on large screens */
-    align-items: center;
-}
-
-/* Show burger menu button on small screens */
-@media (max-width: 768px) {
-    .user-actions {
         display: none; /* Hide user actions on small screens */
-    }
-
-    .burger-menu {
-        display: block; /* Show burger menu button on small screens */
-    }
-}
-
-/* Show user actions when burger menu is clicked */
-.burger-menu.open + .user-actions {
-    display: flex; /* Show user actions when burger menu is active */
-}
-/* Navigation styles */
-.nav-container {
-    background-color: #fff;
-    padding: 0.5rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    position: sticky;
-    top: 60px; /* Odstęp od góry, aby nie nakładało się na header */
-    z-index: 999;
-}
-
-nav a {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-}
-
-nav a:hover,
-nav a:focus,
-nav a:active {
-    text-decoration: none;
-    background-color: #203d5e;
-    color: white;
-    border-radius: 4px;
-}
-
-.content {
-    padding: 2rem;
-}
-
-.banner {
-    position: relative;
-    width: 100%;
-    height: 25vh; /* Użyjemy jednostek względnych do wysokości ekranu */
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Użyjemy cover, aby obraz wypełniał cały kontener */
-}
-
-.categories,
-.featured-products {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    text-decoration: none;
-    text-underline: none;
-}
-
-.category,
-.product {
-    background-color: #b0bec5;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(25% - 1rem);
-    box-sizing: border-box;
-    text-align: center;
-    transition: transform 0.3s;
-    text-decoration: none;
-    text-underline: none;
-
-}
-
-.category:hover,
-.product:hover {
-    transform: translateY(-5px);
-}
-
-.category img,
-.product img {
-    max-width: 100%;
-    border-radius: 8px;
-    object-fit: cover; /* Dopasowuje obrazek do kontenera, przycinając go, jeśli to konieczne */
-
-}
-
-/* Style dla sekcji featured-products */
-.featured-products .product a h3,
-.featured-products .product a p {
-    color: black;
-}
-
-
-/* Dostosowanie układu dla głównej treści */
-.main-content {
-    display: flex;
-}
-
-.content {
-    flex: 1;
-    padding: 2rem;
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-}
-
-/* Globalne style dla linków */
-a {
-    text-decoration: none; /* Usuń podkreślenie dla wszystkich linków */
-    color: black;
-}
-
-.featured-products .product a:hover,
-.featured-products .product a:focus,
-.featured-products .product a:active {
-    text-decoration: none; /* Upewnij się, że linki nie są podkreślone nawet podczas interakcji */
-    color: black;
-}
-
-/* Stylizacja rozwijanego przycisku filtra */
-.filter-toggle {
-    position: relative;
-}
-
-#filterButton {
-    background-color: #203d5e;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.filter-content {
-    display: none; /* Początkowo ukryta */
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    width: 200px;
-    z-index: 1000;
-    top: 100%;
-    left: 0;
-}
-
-.filter-content form {
-    display: flex;
-    flex-direction: column;
-}
-
-.filter-content button {
-    margin-top: 1rem;
-    background-color: #203d5e;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.filter-content button:hover {
-    background-color: #1b2a42;
-}
-
-/* Stylizacja po kliknięciu przycisku filtra */
-.filter-toggle.open .filter-content {
-    display: block; /* Pokaż zawartość */
-}
-
-
-/* Stylowanie kontenera dla menu na małych ekranach */
-.user-actions {
-    display: flex; /* Domyślnie pokazane na dużych ekranach */
-    align-items: center;
-}
-
-/* Styl dla przycisku filtrowania */
-#filterButton {
-    background-color: #203d5e;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    position: relative;
-}
-
-#filterButton:hover {
-    background-color: #1b2a42;
-}
-
-/* Styl dla rozwijanego menu po najechaniu */
-.filter-toggle:hover .filter-content {
-    display: block;
-    opacity: 1;
-}
-
-.filter-content {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    background-color: transparent; /* Zmienione z #fff na transparentne tło */
-    box-shadow: none; /* Usunięcie cienia */
-    padding: 0; /* Usunięcie paddingu */
-    width: auto; /* Ustawienie na auto, jeśli potrzebne */
-    z-index: 1000;
-    top: 100%;
-    left: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 0; /* Usunięcie zaokrąglonych rogów */
-}
-
-/* Styl dla przycisków wewnątrz formularza filtrowania */
-.filter-content button {
-    background-color: #203d5e;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 150px; /* Ustalona szerokość dla przycisków */
-    display: block; /* Przyciski zajmują pełną szerokość kontenera */
-    margin: 0; /* Usunięcie marginesów */
-}
-
-/* Styl dla przycisków wewnątrz formularza filtrowania po najechaniu */
-.filter-content button:hover {
-    background-color: #1b2a42;
-}
-
-/* Pagination styles */
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-.pagination ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.pagination li {
-    margin: 0;
-}
-
-.pagination a {
-    text-decoration: none;
-    color: #203d5e;
-    padding: 0.5rem 1rem;
-    border: 1px solid #203d5e;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.pagination a:hover,
-.pagination a:focus {
-    background-color: #203d5e;
-    color: white;
-}
-
-.pagination li.active a {
-    background-color: #203d5e;
-    color: white;
-    border: none;
-}
-/* Domyślnie, menu jest widoczne, a przycisk hamburgera ukryty */
-.nav-menu-content {
-    display: flex;
-}
-
-.menu-toggle {
-    display: none; /* Ukryj przycisk hamburgera na dużych ekranach */
-    font-size: 1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-}
-
-@media (max-width: 768px) {
-    .nav-menu-content {
-        display: none; /* Ukryj menu na małych ekranach */
         flex-direction: column;
         position: absolute;
-        top: 60px; /* Dostosuj według potrzeb */
-        left: 0;
-        background: #fff;
-        width: 100%;
+        margin-right: auto;
+        top: 60px; /* Adjust as per your layout */
+        right: 0;
+        background: #fff; /* Dropdown background color */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+
+    }
+    header .user-actions:hover{
+    cursor: pointer;
     }
 
-    .menu-toggle {
-        display: block;
-        color: #1b2a42;
-        border: #1b2a42;/* Pokaż przycisk hamburgera na małych ekranach */
+    header .burger-menu {
+        display: block; /* Show burger menu button on small screens */
+       margin-left: auto;
+
     }
 
-    .nav-menu-content.open {
-        display: flex; /* Pokaż menu po kliknięciu przycisku hamburgera */
+    header .burger-menu:hover{
+        cursor: pointer;
+    }
+    /* Show user actions when burger menu is clicked */
+
+        .user-actions.open {
+            display: flex; /* Show the dropdown */
+        }
+
+        /* Optional: Style the user actions within the dropdown */
+
+        .user-actions.open a {
+            padding: 0.5rem;
+            border-top: 1px solid #eee;
+            color: #203d5e; /* Text color for user actions */
+            width: 100%;
+        }
     }
 
-    .nav-menu-content a {
+    /* Navigation styles */
+
+    .nav-container {
+        background-color: #fff;
+        padding: 0.5rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        position: sticky;
+        top: 60px; /* Odstęp od góry, aby nie nakładało się na header */
+        z-index: 999;
+
+    }
+
+    nav a {
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+    }
+
+    nav a:hover,
+    nav a:focus,
+    nav a:active {
+        text-decoration: none;
+        background-color: #203d5e;
+        color: white;
+        border-radius: 4px;
+    }
+
+    .content {
+        padding: 2rem;
+    }
+
+    .banner {
+        position: relative;
+        width: 100%;
+        height: 25vh; /* Użyjemy jednostek względnych do wysokości ekranu */
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Użyjemy cover, aby obraz wypełniał cały kontener */
+    }
+
+    .categories,
+    .featured-products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        text-decoration: none;
+        text-underline: none;
+    }
+
+    .category,
+    .product {
+        background-color: #b0bec5;
         padding: 1rem;
-        border-top: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(25% - 1rem);
+        box-sizing: border-box;
+        text-align: center;
+        transition: transform 0.3s;
+        text-decoration: none;
+        text-underline: none;
+
     }
 
-    .nav-menu-content a:hover,
-    .nav-menu-content a:focus {
+    .category:hover,
+    .product:hover {
+        transform: translateY(-5px);
+    }
+
+    .category img,
+    .product img {
+        max-width: 100%;
+        border-radius: 8px;
+        object-fit: cover; /* Dopasowuje obrazek do kontenera, przycinając go, jeśli to konieczne */
+
+    }
+
+    /* Style dla sekcji featured-products */
+
+    .featured-products .product a h3,
+    .featured-products .product a p {
+        color: black;
+    }
+
+
+    /* Dostosowanie układu dla głównej treści */
+
+    .main-content {
+        display: flex;
+    }
+
+    .content {
+        flex: 1;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            flex-direction: column;
+        }
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    /* Globalne style dla linków */
+
+    a {
+        text-decoration: none; /* Usuń podkreślenie dla wszystkich linków */
+        color: black;
+    }
+
+    .featured-products .product a:hover,
+    .featured-products .product a:focus,
+    .featured-products .product a:active {
+        text-decoration: none; /* Upewnij się, że linki nie są podkreślone nawet podczas interakcji */
+        color: black;
+    }
+
+    /* Stylizacja rozwijanego przycisku filtra */
+
+    .filter-toggle {
+        position: relative;
+    }
+
+    #filterButton {
+        background-color: #203d5e;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .filter-content {
+        display: none; /* Początkowo ukryta */
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        width: 200px;
+        z-index: 1000;
+        top: 100%;
+        left: 0;
+    }
+
+    .filter-content form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filter-content button {
+        margin-top: 1rem;
+        background-color: #203d5e;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .filter-content button:hover {
+        background-color: #1b2a42;
+    }
+
+    /* Stylizacja po kliknięciu przycisku filtra */
+
+    .filter-toggle.open .filter-content {
+        display: block; /* Pokaż zawartość */
+    }
+
+
+    /* Stylowanie kontenera dla menu na małych ekranach */
+
+    .user-actions {
+        display: flex; /* Domyślnie pokazane na dużych ekranach */
+        align-items: center;
+    }
+
+    /* Styl dla przycisku filtrowania */
+
+    #filterButton {
+        background-color: #203d5e;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        position: relative;
+    }
+
+    #filterButton:hover {
+        background-color: #1b2a42;
+    }
+
+    /* Styl dla rozwijanego menu po najechaniu */
+
+    .filter-toggle:hover .filter-content {
+        display: block;
+        opacity: 1;
+    }
+
+    .filter-content {
+        display: none;
+        opacity: 0;
+        position: absolute;
+        background-color: transparent; /* Zmienione z #fff na transparentne tło */
+        box-shadow: none; /* Usunięcie cienia */
+        padding: 0; /* Usunięcie paddingu */
+        width: auto; /* Ustawienie na auto, jeśli potrzebne */
+        z-index: 1000;
+        top: 100%;
+        left: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 0; /* Usunięcie zaokrąglonych rogów */
+    }
+
+    /* Styl dla przycisków wewnątrz formularza filtrowania */
+
+    .filter-content button {
+        background-color: #203d5e;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 150px; /* Ustalona szerokość dla przycisków */
+        display: block; /* Przyciski zajmują pełną szerokość kontenera */
+        margin: 0; /* Usunięcie marginesów */
+    }
+
+    /* Styl dla przycisków wewnątrz formularza filtrowania po najechaniu */
+
+    .filter-content button:hover {
+        background-color: #1b2a42;
+    }
+
+    /* Pagination styles */
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .pagination ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pagination li {
+        margin: 0;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        color: #203d5e;
+        padding: 0.5rem 1rem;
+        border: 1px solid #203d5e;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    .pagination a:hover,
+    .pagination a:focus {
         background-color: #203d5e;
         color: white;
     }
 
-}
+    .pagination li.active a {
+        background-color: #203d5e;
+        color: white;
+        border: none;
+    }
+
+    /* Domyślnie, menu jest widoczne, a przycisk hamburgera ukryty */
+
+    .nav-menu-content {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: none; /* Ukryj przycisk hamburgera na dużych ekranach */
+        font-size: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .nav-menu-content {
+            display: none; /* Ukryj menu na małych ekranach */
+            flex-direction: column;
+            position: absolute;
+            top: 60px; /* Dostosuj według potrzeb */
+            left: 0;
+            background: #fff;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-toggle {
+            display: block;
+            color: #1b2a42;
+            border: #1b2a42; /* Pokaż przycisk hamburgera na małych ekranach */
+        }
+
+        .nav-menu-content.open {
+            display: flex; /* Pokaż menu po kliknięciu przycisku hamburgera */
+        }
+
+        .nav-menu-content a {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-menu-content a:hover,
+        .nav-menu-content a:focus {
+            background-color: #203d5e;
+            color: white;
+        }
+
+    }

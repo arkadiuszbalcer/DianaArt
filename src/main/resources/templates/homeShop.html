@@ -22,8 +22,8 @@
       <input type="text" placeholder="Kawał dobrej sztuki" name="search" id="searchInput">
     </form>
   </div>
+  <button class="burger-menu" aria-label="Otwórz menu">&#9776;</button>
   <div class="user-actions">
-    <button class="burger-menu" aria-label="Otwórz menu">&#9776;</button>
     <a href="#" th:href="@{/login}" sec:authorize="isAnonymous()">Zaloguj się</a>
     <a href="#" th:href="@{/registration}" sec:authorize="isAnonymous()">Rejestracja</a>
     <a href="#" th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()">Koszyk(<span id="cart-count" th:text="${cartCount}">0</span>)</a>

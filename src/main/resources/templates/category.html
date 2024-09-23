@@ -9,7 +9,7 @@
   <script defer src="/scripts/product.js" th:src="@{/scripts/product.js}"></script>
   <script defer src="/scripts/main.js" th:src="@{/scripts/main.js}"></script>
   <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
-  <link rel="stylesheet" href="../styles/product.css" th:href="@{/styles/product.css}">
+
 </head>
 <body>
 
@@ -22,6 +22,7 @@
       <input type="text" placeholder="Kawał dobrej sztuki" name="search" id="searchInput">
     </form>
   </div>
+  <button class="burger-menu" aria-label="Otwórz menu">&#9776;</button>
   <div class="user-actions">
     <a href="#" th:href="@{/login}" sec:authorize="isAnonymous()">Zaloguj się</a>
     <a href="#" th:href="@{/registration}" sec:authorize="isAnonymous()">Rejestracja</a>
@@ -29,7 +30,6 @@
     <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
   </div>
 </header>
-
 <div class="nav-container">
   <nav class="nav-menu">
     <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>

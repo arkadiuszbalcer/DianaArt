@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Szczegóły zamówienia - DianaArt</title>
-  <link rel="stylesheet" href="../static/styles/order.css" th:href="@{/styles/order.css}">
+  <link rel="stylesheet" href="../static/styles/shoppingCart.css" th:href="@{/styles/shoppingCart.css}">
   <script defer src="../static/scripts/product.js" th:src="@{/scripts/product.js}"></script>
   <script defer src="../static/scripts/main.js" th:src="@{/scripts/main.js}"></script>
   <meta name="csrf-token" th:content="${_csrf.token}">
 </head>
 <body>
-<div class="page-wrapper">
-  <header>
-    <div class="logo">
-      <a href="#" th:href="@{/}">DianaArt</a>
-    </div>
 
-    <div class="user-actions">
-      <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
-    </div>
-  </header>
-
-  <div class="nav-container">
-    <nav class="nav-menu">
-      <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
-      <div class="nav-menu-content">
-        <a href="#" th:href="@{/category?category=modern}">Modern</a>
-        <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
-        <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
-        <a href="#" th:href="@{/category?category=science}">Nauka</a>
-        <a href="#" th:href="@{/category?category=life}">Życie</a>
-        <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
-      </div>
-    </nav>
+<header>
+  <div class="logo">
+    <a href="#" th:href="@{/}">DianaArt</a>
   </div>
+  <div class="user-menu-content">
+    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()">Zaloguj się</a>
+    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()">Rejestracja</a>
+    <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Wyloguj się</a>
+  </div>
+</header>
 
+<div class="nav-container">
+  <nav class="nav-menu">
+    <button class="menu-toggle" aria-label="Otwórz menu">&#9776;</button>
+    <div class="nav-menu-content">
+      <a href="#" th:href="@{/category?category=modern}">Modern</a>
+      <a href="#" th:href="@{/category?category=comfy}">Comfy</a>
+      <a href="#" th:href="@{/category?category=nature}">Przyroda</a>
+      <a href="#" th:href="@{/category?category=science}">Nauka</a>
+      <a href="#" th:href="@{/category?category=life}">Życie</a>
+      <a href="#" th:href="@{/category?category=automotive}">Motoryzacja</a>
+    </div>
+  </nav>
+</div>
+
+<div class="page-wrapper">
   <main class="content">
     <div class="order-details">
+      <div>
       <h1>Szczegóły zamówienia</h1>
       <div th:if="${emptyCartMessage}">
         <p th:text="${emptyCartMessage}">Koszyk jest pusty, dodaj produkty do koszyka.</p>
+      </div>
       </div>
       <div th:if="${productQuantities}">
         <h2>Produkty</h2>
@@ -70,7 +74,6 @@
         <p><strong>Łączna suma:</strong> <span th:text="${totalOrderSum}" class="total-order-sum">0.00</span> zł</p>
         <button class="payment-button">Przejdź do płatności</button>
       </div>
-
     </div>
   </main>
 
@@ -78,5 +81,6 @@
     <p>&copy; 2024 DianaArt. Wszelkie prawa zastrzeżone.</p>
   </footer>
 </div>
+
 </body>
 </html>

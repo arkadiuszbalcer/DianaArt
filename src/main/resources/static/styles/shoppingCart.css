@@ -64,7 +64,9 @@ header .user-actions a {
     margin-left: 1rem;
     text-decoration: none;
 }
-
+header .user-menu-content a {
+    color: #fff; /* Change to white */
+}
 header .user-actions a:hover,
 header .user-actions a:focus,
 header .user-actions a:active {
@@ -83,18 +85,7 @@ header .logo a:active {
 }
 
 /* Navigation styles */
-.nav-container {
-    background-color: #fff; /* White background for navigation */
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    position: sticky;
-    top: 60px; /* Offset from top to avoid overlapping with header */
-    z-index: 999;
-}
+
 
 nav a {
     color: #333; /* Dark text for navigation links */
@@ -102,7 +93,19 @@ nav a {
     font-weight: bold;
     padding: 0.5rem 1rem;
 }
+.nav-container {
+    background-color: #fff;
+    padding: 0.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 60px; /* Odstęp od góry, aby nie nakładało się na header */
+    z-index: 999;
 
+}
 nav a:hover,
 nav a:focus,
 nav a:active {
@@ -114,6 +117,8 @@ nav a:active {
 /* Main content styles */
 .content {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Order details styling */
@@ -378,5 +383,94 @@ a:active {
         background-color: #203d5e;
         color: white;
     }
+    /* Responsive styles for the shopping cart page */
 
+
+    /* General page and body styles remain unchanged */
+
+    @media (max-width: 768px) {
+        /* Stack product image and info vertically on smaller screens */
+        .product-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .order-details h1{
+            font-size:1.5rem;
+        }
+        /* Make product image responsive */
+        .product-image img {
+            width: 80%; /* Full width on small screens */
+            height: auto;
+            margin-bottom: 1rem; /* Space between image and info */
+        }
+        .delete{
+
+            position:relative;
+            margin-left: 12px;
+            gap: 0.5rem;
+        }
+        /* Product info full width on small screens */
+        .product-info {
+            width: 80%;
+            padding: 1rem;
+        }
+
+        /* Quantity buttons stacked vertically */
+        .quantity-buttons {
+            flex-direction: column;
+            gap: 0.5rem;
+
+        }
+
+        /* Full-width payment button on small screens */
+        .payment-button {
+            width: 80%;
+            margin-top: 1rem;
+        }
+        .order-details{
+            width: 80%;
+            align-content: center;
+        }
+        /* Order summary stack vertically */
+        .order-summary {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .order-summary .total-order-sum {
+            text-align: center;
+            margin-bottom: 1rem; /* Space between total and payment button */
+        }
+
+        /* Ensure header and nav are responsive */
+        header .user-menu-content a {
+            display: block; /* Stack links vertically */
+            margin-bottom: 0.5rem; /* Add space between links */
+        }
+
+        /* Hamburger menu improvements */
+        .nav-menu-content {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: #fff;
+            width: 80%;
+        }
+
+        .nav-menu-content.open {
+            display: flex;
+        }
+
+        .nav-menu-content a {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .menu-toggle {
+            display: block;
+            color: #1b2a42;
+        }
+    }
 }
